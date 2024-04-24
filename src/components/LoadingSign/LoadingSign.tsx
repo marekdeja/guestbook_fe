@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './LoadingSign.module.scss'
 
 const LoadingSign = () => {

@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import { guestBookApi } from '@/api/service'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
 import useGetAllEntries from '@/hooks/useGetAllEntries'
-
-import styles from './Home.module.scss'
+import { postEntry } from '@/store/slices/guestBookSlice'
 import LoadingSign from '@/components/LoadingSign/LoadingSign'
+import styles from './Home.module.scss'
 
 const Home = () => {
+   const dispatch = useDispatch<AppDispatch>()
+
    const [userName, setUserName] = useState<string>('')
    const [userText, setUserText] = useState<string>('')
 
@@ -16,9 +19,9 @@ const Home = () => {
       getEntries()
    }, [])
 
-   const postEntry = async () => {
+   const sendEntry = async () => {
       if (userName && userText) {
-         await guestBookApi.postEntry({ userName, userText, entryDate: new Date().toISOString() })
+         dispatch(postEntry({ userName, userText, entryDate: new Date().toISOString() }))
          getEntries()
       }
    }
@@ -39,7 +42,7 @@ const Home = () => {
                placeholder="Enter Message"
                onChange={(e) => setUserText(e.target.value)}
             />
-            <button className={styles.submitButton} onClick={postEntry}>
+            <button className={styles.submitButton} onClick={sendEntry}>
                Submit
             </button>
          </div>
