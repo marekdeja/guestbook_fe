@@ -1,21 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import axios, { AxiosInstance, AxiosPromise, AxiosResponse, Method } from 'axios'
 
-export interface Request {
+export interface Request<T = unknown> {
    headers?: Record<string, string>
-   data?: any
-   params?: any
+   data?: T
+   params?: T
 }
 
 export class HttpClient {
    private httpClient: AxiosInstance
 
-   private async handleRequest(
+   private async handleRequest<T>(
       url: string,
       method: Method,
       config: Request = {},
-   ): Promise<AxiosResponse<any>> {
+   ): Promise<AxiosResponse<T>> {
       const { headers, data, params } = config
       const response = await this.httpClient.request({
          url,

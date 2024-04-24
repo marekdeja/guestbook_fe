@@ -3,12 +3,13 @@ import { guestBookApi } from '@/api/service'
 import useGetAllEntries from '@/hooks/useGetAllEntries'
 
 import styles from './Home.module.scss'
+import LoadingSign from '@/components/LoadingSign/LoadingSign'
 
 const Home = () => {
    const [userName, setUserName] = useState<string>('')
    const [userText, setUserText] = useState<string>('')
 
-   const { getEntries, allEntries } = useGetAllEntries()
+   const { getEntries, allEntries, loading, error } = useGetAllEntries()
    const reversedEntries = allEntries && [...allEntries].reverse()
 
    useEffect(() => {
@@ -44,6 +45,10 @@ const Home = () => {
          </div>
 
          <div className={styles.entriesContainer}>
+            <div className={styles.infoContainer}>
+               {loading && <LoadingSign />}
+               {error !== null && <div className={styles.failed}>Connection to server failed.</div>}
+            </div>
             {reversedEntries &&
                reversedEntries.map((entry) => (
                   <div className={styles.entry} key={entry._id}>

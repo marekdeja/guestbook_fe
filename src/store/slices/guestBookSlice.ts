@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { guestBookApi } from '@/api/service'
 
@@ -13,7 +12,7 @@ export type EntryData = {
 export interface GuestBookSlice {
    allEntries: [EntryData] | []
    loading: boolean
-   error: any
+   error: unknown
 }
 
 const INITIAL_STATE = {
@@ -24,7 +23,8 @@ const INITIAL_STATE = {
 
 export const fetchAllEntries = createAsyncThunk('guestBook/fetchAllEntries', async () => {
    const response = await guestBookApi.getAllEntries()
-   return response.data // Only return the data, not the entire response, due to serialization
+   // Only return the data, not the entire response, due to serialization
+   return response.data
 })
 
 const guestBookSlice = createSlice({
@@ -35,6 +35,7 @@ const guestBookSlice = createSlice({
       builder
          .addCase(fetchAllEntries.pending, (state) => {
             state.loading = true
+            state.error = null
          })
          .addCase(fetchAllEntries.fulfilled, (state, action) => {
             state.loading = false
@@ -44,7 +45,7 @@ const guestBookSlice = createSlice({
          .addCase(fetchAllEntries.rejected, (state, action) => {
             state.loading = false
             state.allEntries = []
-            state.error = action.payload
+            state.error = action.error
          })
    },
 })

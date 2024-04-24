@@ -1,5 +1,5 @@
 body {
-   font-family: Arial, sans-serif; /* Replace with your preferred font family */
+   font-family: Arial, sans-serif;
 }
 .guestbookContainer {
    width: 100%;
@@ -64,4 +64,13 @@ body {
          font-weight: bold;
       }
    }
+}
+
+.failed {
+   color: red;
+   font-weight: bold;
+}
+
+.infoContainer {
+   text-align: center;
 }

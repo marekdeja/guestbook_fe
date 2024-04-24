@@ -9,10 +9,8 @@
       }
    },
    "extends": [
-      // "standard-with-typescript",
       "eslint:recommended",
       "plugin:react/recommended",
-      //added below by me
       "plugin:@typescript-eslint/recommended",
       "prettier"
    ],
