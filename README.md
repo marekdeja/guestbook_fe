@@ -1,2 +1,4 @@
-# FE_project_start
-Boilerplate for React project with Redux Toolkit, Axios
+Example for a guestbook with React and Node.js.
+Frontend.
+
+Contact me at: marekdeja.com
